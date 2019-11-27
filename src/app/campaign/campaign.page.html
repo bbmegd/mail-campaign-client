@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Campaign List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-button class="ion-float-right" (click)="cancelCampaign()">Cancel Campaign</ion-button>
+  <ion-button class="ion-float-right" (click)="addCampaign()">Add Campaign</ion-button>
+  <br>
+  <br>
+  <br>
+  <ion-list>
+    <ion-item *ngFor="let item of campaignList">
+      <ion-checkbox slot="start" [(ngModel)]="item.isChecked"></ion-checkbox>
+      {{item.name}}
+      <div slot="end">
+        <ion-badge *ngIf="item.active" color="success">Active</ion-badge>
+        <ion-badge *ngIf="!item.active" color="danger">Cancelled</ion-badge>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

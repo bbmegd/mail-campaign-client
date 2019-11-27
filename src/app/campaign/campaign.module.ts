@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 
-import { ListPage } from './list.page';
+import { IonicModule } from '@ionic/angular';
+import { CampaignPage } from './campaign.page';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -15,11 +15,11 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forChild([
       {
         path: '',
-        component: ListPage
+        component: CampaignPage
       }
     ]),
     HttpClientModule
   ],
-  declarations: [ListPage]
+  declarations: [CampaignPage]
 })
-export class ListPageModule {}
+export class CampaignPageModule { }

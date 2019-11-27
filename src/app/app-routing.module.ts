@@ -14,6 +14,22 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+  },
+  {
+    path: 'compose-email',
+    loadChildren: () => import('./compose-email/compose-email.module').then( m => m.ComposeEmailPageModule)
+  },
+  {
+    path: 'campaign',
+    loadChildren: () => import('./campaign/campaign.module').then( m => m.CampaignPageModule)
+  },
+  {
+    path: 'link/:uuid',
+    loadChildren: () => import('./link/link.module').then( m => m.LinkPageModule)
+  },
+  {
+    path: 'contact-details',
+    loadChildren: () => import('./contact-details/contact-details.module').then( m => m.ContactDetailsPageModule)
   }
 ];
 

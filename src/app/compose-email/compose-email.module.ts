@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ListPage } from './list.page';
+import { IonicModule } from '@ionic/angular';
+import { ComposeEmailPage } from './compose-email.page';
+import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -15,11 +15,12 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule.forChild([
       {
         path: '',
-        component: ListPage
+        component: ComposeEmailPage
       }
     ]),
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  declarations: [ListPage]
+  declarations: [ComposeEmailPage]
 })
-export class ListPageModule {}
+export class ComposeEmailPageModule {}

@@ -4,24 +4,26 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      List
+      Contact List
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-button class="ion-float-right" (click)="composeEmail()">Compose Email</ion-button>
+  <ion-button class="ion-float-left" (click)="addContact()">Add Contact</ion-button>
+  <ion-button class="ion-float-left" (click)="deleteContact()">Delete Contact</ion-button>
+  <ion-button class="ion-float-left" (click)="contactDetailsClicked()">Contact Details</ion-button>
+  <br>
+  <br>
+  <br>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
+    <ion-item *ngFor="let item of contactList">
+      <ion-checkbox slot="start" [(ngModel)]="item.isChecked"></ion-checkbox>
+      {{item.name}} {{item.surname}}
+      <div slot="end">
+        {{item.email}}
       </div>
     </ion-item>
   </ion-list>
-  <!--
-    <div *ngIf="selectedItem" padding>
-      You navigated here from <b>{{selectedItem.title }}</b>
-    </div>
-  -->
 </ion-content>

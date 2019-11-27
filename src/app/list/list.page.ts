@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router, NavigationExtras } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -6,34 +9,97 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['list.page.scss']
 })
 export class ListPage implements OnInit {
-  private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
-  constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private alertController: AlertController
+  ) {
   }
 
+  contactList: any;
+
   ngOnInit() {
+    this.getAllContacts();
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
-  // }
+
+  getAllContacts() {
+    this.http.get('http://localhost:8080/contact/getAllContacts').toPromise().then((response) => {
+      this.contactList = response;
+    });
+  }
+
+  composeEmail() {
+    let checkedContacts = this.contactList.filter(contact => contact.isChecked === true);
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        contacts: checkedContacts
+      }
+    };
+    this.router.navigate(['compose-email'], navigationExtras);
+  }
+
+  deleteContact() {
+    let checkedContacts = this.contactList.filter(contact => contact.isChecked === true);
+    let idList = checkedContacts.map(contact => contact.id);
+    this.http.delete(`http://localhost:8080/contact/deleteContact?idList=${idList}`).toPromise().then((response) => {
+      this.getAllContacts();
+    });
+  }
+
+  async addContact() {
+    const alert = await this.alertController.create({
+      header: 'Add Contact',
+
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Name'
+        },
+        {
+          name: 'surname',
+          placeholder: 'Surname'
+        },
+        {
+          name: 'email',
+          placeholder: 'Email'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+          }
+        },
+        {
+          text: 'Add',
+          handler: data => {
+            if (data.name) {
+              this.http.post('http://localhost:8080/contact/addContact', data).toPromise().then((response) => {
+                this.getAllContacts();
+                return true;
+              });
+            }
+            else {
+              return false;
+            }
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  contactDetailsClicked() {
+    let checkedContacts = this.contactList.filter(contact => contact.isChecked === true);
+
+    let navigationExtras: NavigationExtras = {
+      state: {
+        contact:checkedContacts[0]
+      }
+    };
+    this.router.navigate(['contact-details'], navigationExtras);
+  }
 }

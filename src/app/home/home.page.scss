@@ -1,4 +1,13 @@
-.welcome-card img {
-  max-height: 35vh;
+.media {
+  max-width: 400px;
+  max-height: 400px;
+  border-block: 100% !important;
   overflow: hidden;
+  margin:auto;
+}
+
+.fileClass{
+  margin-right:20%;
+  margin-left:40%;
+  font-size: large;
 }
