@@ -73,7 +73,6 @@ export class ComposeEmailPage implements OnInit {
       .then(async (response) => {
 
         const alert = await this.alertController.create({
-          header: 'Alert',
           subHeader: 'Successful',
           message: 'Mail is sent.',
           buttons: ['OK']

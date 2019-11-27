@@ -21,9 +21,8 @@ export class HomePage {
     this.http.post('http://localhost:8080/contact/uploadFile', formData).toPromise().then(async (response) => {
 
       const alert = await this.alertController.create({
-        header: 'Alert',
-        subHeader: 'Successful Upload',
-        message: 'File read is successfull.',
+        subHeader: 'Successful',
+        message: 'File upload successfull.',
         buttons: ['OK']
       });
 
